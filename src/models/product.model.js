@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
 
-const productSchema = mongoose.Schema(
+const { Schema } = mongoose;
+
+const productSchema = Schema(
   {
     name: {
       type: String,
@@ -15,6 +17,13 @@ const productSchema = mongoose.Schema(
     description: {
       type: String,
       required: true,
+    },
+    image: {
+      type: String,
+    },
+    category: {
+      type: Schema.Types.ObjectId,
+      ref: 'Category',
     },
   },
   {
