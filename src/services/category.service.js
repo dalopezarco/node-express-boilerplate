@@ -39,8 +39,8 @@ const getCategoryById = async (id) => {
 };
 
 /**
- * Get category by email
- * @param {string} email
+ * Get category by name
+ * @param {string} name
  * @returns {Promise<Category>}
  */
 const getCategoryByName = async (name) => {
