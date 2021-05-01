@@ -34,7 +34,7 @@ const createProduct = async (productBody) => {
  * @returns {Promise<QueryResult>}
  */
 const queryProducts = async (filter, options) => {
-  const products = await Product.paginate(filter, options);
+  const products = await Product.paginate(filter, { ...options, populate: 'category' });
   return products;
 };
 
