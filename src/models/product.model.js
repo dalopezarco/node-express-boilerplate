@@ -12,7 +12,6 @@ const productSchema = Schema(
     },
     votes: {
       type: Number,
-      required: true,
     },
     description: {
       type: String,
@@ -34,6 +33,11 @@ const productSchema = Schema(
 // add plugin that converts mongoose to json
 productSchema.plugin(toJSON);
 productSchema.plugin(paginate);
+
+productSchema.statics.isNameTaken = async function (name, excludeUserId) {
+  const product = await this.findOne({ name, _id: { $ne: excludeUserId } });
+  return !!product;
+};
 
 /**
  * @typedef Product

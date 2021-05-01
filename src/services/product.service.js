@@ -2,13 +2,25 @@ const httpStatus = require('http-status');
 const { Product } = require('../models');
 const ApiError = require('../utils/ApiError');
 
+const categoryService = require('./category.service');
+
 /**
  * Create a product
  * @param {Object} productBody
  * @returns {Promise<Product>}
  */
 const createProduct = async (productBody) => {
-  const product = await Product.create(productBody);
+  const category = await categoryService.getCategoryByName(productBody.category);
+  if (!category) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Category doesnt exists');
+  }
+  if (productBody.name && (await Product.isNameTaken(productBody.name))) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Product name is  already taken');
+  }
+  const newProductBody = productBody;
+  newProductBody.category = category.id;
+  const product = await Product.create(newProductBody);
+  categoryService.updateCategoryById(category.id, { products: category.products.concat(product.id) });
   return product;
 };
 
@@ -40,7 +52,7 @@ const getProductById = async (id) => {
  * @param {string} email
  * @returns {Promise<Product>}
  */
-const getProductByEmail = async (email) => {
+const getProductByName = async (email) => {
   return Product.findOne({ email });
 };
 
@@ -79,7 +91,7 @@ module.exports = {
   createProduct,
   queryProducts,
   getProductById,
-  getProductByEmail,
+  getProductByName,
   updateProductById,
   deleteProductById,
 };

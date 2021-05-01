@@ -27,10 +27,9 @@ module.exports = router;
 
 /**
  * @swagger
- * /users:
+ * /products:
  *   post:
- *     summary: Create a user
- *     description: Only admins can create other users.
+ *     summary: Create a product
  *     tags: [Products]
  *     security:
  *       - bearerAuth: []
@@ -42,29 +41,14 @@ module.exports = router;
  *             type: object
  *             required:
  *               - name
- *               - email
- *               - password
- *               - role
  *             properties:
  *               name:
  *                 type: string
- *               email:
+ *               description:
  *                 type: string
- *                 format: email
- *                 description: must be unique
- *               password:
- *                 type: string
- *                 format: password
- *                 minLength: 8
- *                 description: At least one number and one letter
- *               role:
- *                  type: string
- *                  enum: [user, admin]
  *             example:
- *               name: fake name
- *               email: fake@example.com
- *               password: password1
- *               role: user
+ *               name: keyboards
+ *               description: Keyboards
  *     responses:
  *       "201":
  *         description: Created
@@ -73,15 +57,14 @@ module.exports = router;
  *             schema:
  *                $ref: '#/components/schemas/Product'
  *       "400":
- *         $ref: '#/components/responses/DuplicateEmail'
+ *         $ref: '#/components/responses/DuplicateCategoryName'
  *       "401":
  *         $ref: '#/components/responses/Unauthorized'
  *       "403":
  *         $ref: '#/components/responses/Forbidden'
  *
  *   get:
- *     summary: Get all users
- *     description: Only admins can retrieve all users.
+ *     summary: Get all products
  *     tags: [Products]
  *     security:
  *       - bearerAuth: []
@@ -91,11 +74,6 @@ module.exports = router;
  *         schema:
  *           type: string
  *         description: Product name
- *       - in: query
- *         name: role
- *         schema:
- *           type: string
- *         description: Product role
  *       - in: query
  *         name: sortBy
  *         schema:
@@ -107,7 +85,7 @@ module.exports = router;
  *           type: integer
  *           minimum: 1
  *         default: 10
- *         description: Maximum number of users
+ *         description: Maximum number of products
  *       - in: query
  *         name: page
  *         schema:
@@ -147,10 +125,10 @@ module.exports = router;
 
 /**
  * @swagger
- * /users/{id}:
+ * /products/{id}:
  *   get:
- *     summary: Get a user
- *     description: Logged in users can fetch only their own user information. Only admins can fetch other users.
+ *     summary: Get a product
+ *     description: Logged in products can fetch only their own product information. Only admins can fetch other products.
  *     tags: [Products]
  *     security:
  *       - bearerAuth: []
@@ -176,8 +154,8 @@ module.exports = router;
  *         $ref: '#/components/responses/NotFound'
  *
  *   patch:
- *     summary: Update a user
- *     description: Logged in users can only update their own information. Only admins can update other users.
+ *     summary: Update a product
+ *     description: Logged in products can only update their own information. Only admins can update other products.
  *     tags: [Products]
  *     security:
  *       - bearerAuth: []
@@ -227,8 +205,8 @@ module.exports = router;
  *         $ref: '#/components/responses/NotFound'
  *
  *   delete:
- *     summary: Delete a user
- *     description: Logged in users can delete only themselves. Only admins can delete other users.
+ *     summary: Delete a product
+ *     description: Logged in products can delete only themselves. Only admins can delete other products.
  *     tags: [Products]
  *     security:
  *       - bearerAuth: []
