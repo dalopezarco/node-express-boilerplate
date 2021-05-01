@@ -44,8 +44,11 @@ module.exports = router;
  *             properties:
  *               name:
  *                 type: string
+ *               description:
+ *                 type: string
  *             example:
  *               name: keyboards
+ *               description: Keyboards
  *     responses:
  *       "201":
  *         description: Created
@@ -54,7 +57,7 @@ module.exports = router;
  *             schema:
  *                $ref: '#/components/schemas/Category'
  *       "400":
- *         $ref: '#/components/responses/DuplicateEmail'
+ *         $ref: '#/components/responses/DuplicateCategoryName'
  *       "401":
  *         $ref: '#/components/responses/Unauthorized'
  *       "403":
@@ -62,7 +65,6 @@ module.exports = router;
  *
  *   get:
  *     summary: Get all categories
- *     description: Only admins can retrieve all categories.
  *     tags: [Categories]
  *     security:
  *       - bearerAuth: []
@@ -72,11 +74,6 @@ module.exports = router;
  *         schema:
  *           type: string
  *         description: Category name
- *       - in: query
- *         name: role
- *         schema:
- *           type: string
- *         description: Category role
  *       - in: query
  *         name: sortBy
  *         schema:
