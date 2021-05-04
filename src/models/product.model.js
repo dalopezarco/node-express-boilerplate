@@ -20,6 +20,9 @@ const productSchema = Schema(
     image: {
       type: String,
     },
+    buyLink: {
+      type: String,
+    },
     category: {
       type: Schema.Types.ObjectId,
       ref: 'Category',

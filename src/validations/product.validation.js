@@ -8,6 +8,7 @@ const createProduct = {
     description: Joi.string().required(),
     image: Joi.string().required(),
     category: Joi.string().required(),
+    buyLink: Joi.string(),
   }),
 };
 

@@ -46,9 +46,15 @@ module.exports = router;
  *                 type: string
  *               description:
  *                 type: string
+ *               image:
+ *                 type: string
+ *               buyLink:
+ *                  type: string
  *             example:
  *               name: keyboards
  *               description: Keyboards
+ *               image: none
+ *               buyLink: amazon
  *     responses:
  *       "201":
  *         description: Created
