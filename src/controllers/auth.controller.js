@@ -47,6 +47,15 @@ const verifyEmail = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const me = catchAsync(async (req, res) => {
+  if (req.user) {
+    const { user } = req;
+    res.status(httpStatus.OK).send({ user });
+  } else {
+    res.status(httpStatus.BAD_REQUEST).send();
+  }
+});
+
 module.exports = {
   register,
   login,
@@ -56,4 +65,5 @@ module.exports = {
   resetPassword,
   sendVerificationEmail,
   verifyEmail,
+  me,
 };
