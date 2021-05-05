@@ -19,6 +19,7 @@ const createProduct = async (productBody) => {
   }
   const newProductBody = productBody;
   newProductBody.category = category.id;
+  newProductBody.votes = 0;
   const product = await Product.create(newProductBody);
   categoryService.updateCategoryById(category.id, { products: category.products.concat(product.id) });
   return product;
