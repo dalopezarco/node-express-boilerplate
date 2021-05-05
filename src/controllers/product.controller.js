@@ -16,6 +16,13 @@ const getProducts = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getTopProducts = catchAsync(async (req, res) => {
+  const filter = pick(req.query, ['category', 'description']);
+  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const result = await productService.queryTopProducts(filter, options);
+  res.send(result);
+});
+
 const getProduct = catchAsync(async (req, res) => {
   const product = await productService.getProductById(req.params.userId);
   if (!product) {
@@ -40,4 +47,5 @@ module.exports = {
   getProduct,
   updateProduct,
   deleteProduct,
+  getTopProducts,
 };

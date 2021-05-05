@@ -22,6 +22,12 @@ const getProducts = {
   }),
 };
 
+const getTopProducts = {
+  query: Joi.object().keys({
+    category: Joi.string(),
+    limit: Joi.number().integer(),
+  }),
+};
 const getProduct = {
   params: Joi.object().keys({
     productId: Joi.string().custom(objectId),
@@ -53,4 +59,5 @@ module.exports = {
   getProduct,
   updateProduct,
   deleteProduct,
+  getTopProducts
 };

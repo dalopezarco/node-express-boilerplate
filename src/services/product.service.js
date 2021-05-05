@@ -40,6 +40,20 @@ const queryProducts = async (filter, options) => {
 };
 
 /**
+ * Query top products
+ * @param {Object} filter - Mongo filter
+ * @param {Object} options - Query options
+ * @param {string} [options.sortBy] - Sort option in the format: sortField:(desc|asc)
+ * @param {number} [options.limit] - Maximum number of results per page (default = 10)
+ * @param {number} [options.page] - Current page (default = 1)
+ * @returns {Promise<QueryResult>}
+ */
+const queryTopProducts = async (filter, options) => {
+  const products = await Product.find().sort({ votes: -1 }).limit(options.limit);
+  return products;
+};
+
+/**
  * Get product by id
  * @param {ObjectId} id
  * @returns {Promise<Product>}
@@ -95,4 +109,5 @@ module.exports = {
   getProductByName,
   updateProductById,
   deleteProductById,
+  queryTopProducts,
 };
