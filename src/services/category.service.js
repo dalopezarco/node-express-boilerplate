@@ -42,9 +42,8 @@ const queryCategoryNames = async () => {
   const categories = await Category.find();
   if (categories) {
     return categories.map((c) => c.name);
-  } else {
-    return [];
   }
+  return [];
 };
 
 /**
