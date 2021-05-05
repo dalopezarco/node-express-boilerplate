@@ -30,6 +30,24 @@ const queryCategories = async (filter, options) => {
 };
 
 /**
+ * Query for categories
+ * @param {Object} filter - Mongo filter
+ * @param {Object} options - Query options
+ * @param {string} [options.sortBy] - Sort option in the format: sortField:(desc|asc)
+ * @param {number} [options.limit] - Maximum number of results per page (default = 10)
+ * @param {number} [options.page] - Current page (default = 1)
+ * @returns {Promise<QueryResult>}
+ */
+const queryCategoryNames = async () => {
+  const categories = await Category.find();
+  if (categories) {
+    return categories.map((c) => c.name);
+  } else {
+    return [];
+  }
+};
+
+/**
  * Get category by id
  * @param {ObjectId} id
  * @returns {Promise<Category>}
@@ -87,4 +105,5 @@ module.exports = {
   getCategoryByName,
   updateCategoryById,
   deleteCategoryById,
+  queryCategoryNames,
 };
