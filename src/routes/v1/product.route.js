@@ -11,7 +11,7 @@ router
   .get(validate(productValidation.getProducts), product.getProducts);
 
 router
-  .route('/:userId')
+  .route('/:productId')
   .get(validate(productValidation.getProduct), product.getProduct)
   .patch(validate(productValidation.updateProduct), product.updateProduct)
   .delete(validate(productValidation.deleteProduct), product.deleteProduct);
