@@ -49,7 +49,7 @@ const queryProducts = async (filter, options) => {
  * @returns {Promise<QueryResult>}
  */
 const queryTopProducts = async (filter, options) => {
-  const products = await Product.find().sort({ votes: -1 }).limit(options.limit);
+  const products = await Product.find().sort({ votes: -1 }).limit(options.limit).populate('category');
   return products;
 };
 
