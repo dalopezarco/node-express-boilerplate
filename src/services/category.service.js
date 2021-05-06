@@ -24,8 +24,8 @@ const createCategory = async (categoryBody) => {
  * @param {number} [options.page] - Current page (default = 1)
  * @returns {Promise<QueryResult>}
  */
-const queryCategories = async (filter, options) => {
-  const categories = await Category.paginate(filter, { ...options, populate: 'products' });
+const queryCategories = async (filter) => {
+  const categories = await Category.find({ name: filter.name }).populate('products');
   return categories;
 };
 
