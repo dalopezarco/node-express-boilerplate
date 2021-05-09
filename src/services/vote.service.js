@@ -13,8 +13,12 @@ const vote = async (voteBody, user) => {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Already voted on this product');
   }
   const userUpdated = user;
-  userUpdated.votedOn.push(product.id);
-  product.votes += 1;
+  userUpdated.votedOn.push({ productId: product.id, type: voteBody.type });
+  if (voteBody.type === 'up') {
+    product.votes += 1;
+  } else if (voteBody.type === 'down') {
+    product.votes -= 1;
+  }
   await userService.updateUserById(user.id, userUpdated);
   await productService.updateProductById(voteBody.productId, product);
   return product;

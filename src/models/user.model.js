@@ -47,8 +47,15 @@ const userSchema = mongoose.Schema(
     },
     votedOn: [
       {
-        type: Schema.Types.ObjectId,
-        ref: 'Product',
+        productId: {
+          type: Schema.Types.ObjectId,
+          ref: 'Product',
+        },
+        type: {
+          type: String,
+          enum: ['up', 'down'],
+          default: 'up',
+        },
       },
     ],
   },
