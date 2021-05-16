@@ -5,8 +5,8 @@ const { voteService } = require('../services');
 const vote = catchAsync(async (req, res) => {
   if (req.user) {
     const { user } = req;
-    const product = await voteService.vote(req.body, user);
-    res.status(httpStatus.CREATED).send(product);
+    const { product, newUser } = await voteService.vote(req.body, user);
+    res.status(httpStatus.CREATED).send({ product, newUser });
   } else {
     res.status(httpStatus.UNAUTHORIZED).send();
   }

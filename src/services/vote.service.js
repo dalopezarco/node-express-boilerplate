@@ -35,9 +35,9 @@ const vote = async (voteBody, user) => {
       product.votes -= 1;
     }
   }
-  await userService.updateUserById(user.id, userUpdated);
+  const newUser = await userService.updateUserById(user.id, userUpdated);
   await productService.updateProductById(voteBody.productId, product);
-  return product;
+  return { product, newUser };
 };
 
 module.exports = {
