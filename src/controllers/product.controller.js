@@ -42,8 +42,13 @@ const deleteProduct = catchAsync(async (req, res) => {
 });
 
 const addCommentToProduct = catchAsync(async (req, res) => {
-  const product = await productService.addCommentToProduct(req.params.productId, req.body);
-  res.send(product);
+  if (req.user) {
+    const { user } = req;
+    const product = await productService.addCommentToProduct(req.params.productId, req.body, user);
+    res.status(httpStatus.CREATED).send(product);
+  } else {
+    res.status(httpStatus.UNAUTHORIZED).send();
+  }
 });
 
 module.exports = {

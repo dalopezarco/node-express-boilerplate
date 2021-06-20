@@ -7,6 +7,7 @@ const categoryNamesRoute = require('./categoryNames.route');
 const productRoute = require('./product.route');
 const topProductsRoute = require('./topProducts.route');
 const voteRoute = require('./vote.route');
+const commentRoute = require('./comment.route');
 const config = require('../../config/config');
 
 const router = express.Router();
@@ -39,6 +40,10 @@ const defaultRoutes = [
   {
     path: '/vote',
     route: voteRoute,
+  },
+  {
+    path: '/comment',
+    route: commentRoute,
   },
 ];
 

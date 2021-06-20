@@ -102,12 +102,15 @@ const deleteProductById = async (productId) => {
   return product;
 };
 
-const addCommentToProduct = async (productId, comment) => {
+const addCommentToProduct = async (productId, body, user) => {
   const product = await getProductById(productId);
   if (!product) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Product not found');
   }
-  const newProduct = { ...product, comments: product.comments.push(comment) };
+  const newProduct = {
+    ...product,
+    comments: product.comments.concat([{ comment: body.comment, date: Date.now(), user: user.id }]),
+  };
   Object.assign(product, newProduct);
   await product.save();
   return product;

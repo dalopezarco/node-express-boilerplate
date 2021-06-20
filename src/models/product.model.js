@@ -3,6 +3,21 @@ const { toJSON, paginate } = require('./plugins');
 
 const { Schema } = mongoose;
 
+const CommentSchema = new Schema({
+  comment: {
+    type: String,
+    default: '',
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  created: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
 const productSchema = Schema(
   {
     name: {
@@ -27,7 +42,11 @@ const productSchema = Schema(
       type: Schema.Types.ObjectId,
       ref: 'Category',
     },
-    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    comments: [
+      {
+        type: CommentSchema,
+      },
+    ],
   },
   {
     timestamps: true,
