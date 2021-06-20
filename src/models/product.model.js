@@ -27,6 +27,7 @@ const productSchema = Schema(
       type: Schema.Types.ObjectId,
       ref: 'Category',
     },
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   },
   {
     timestamps: true,

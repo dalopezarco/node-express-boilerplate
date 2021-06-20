@@ -32,13 +32,18 @@ const getProduct = catchAsync(async (req, res) => {
 });
 
 const updateProduct = catchAsync(async (req, res) => {
-  const product = await productService.updateProductById(req.params.userId, req.body);
+  const product = await productService.updateProductById(req.params.productId, req.body);
   res.send(product);
 });
 
 const deleteProduct = catchAsync(async (req, res) => {
-  await productService.deleteProductById(req.params.userId);
+  await productService.deleteProductById(req.params.productId);
   res.status(httpStatus.NO_CONTENT).send();
+});
+
+const addCommentToProduct = catchAsync(async (req, res) => {
+  const product = await productService.addCommentToProduct(req.params.productId, req.body);
+  res.send(product);
 });
 
 module.exports = {
@@ -48,4 +53,5 @@ module.exports = {
   updateProduct,
   deleteProduct,
   getTopProducts,
+  addCommentToProduct,
 };

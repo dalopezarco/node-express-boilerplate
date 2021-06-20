@@ -102,6 +102,17 @@ const deleteProductById = async (productId) => {
   return product;
 };
 
+const addCommentToProduct = async (productId, comment) => {
+  const product = await getProductById(productId);
+  if (!product) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Product not found');
+  }
+  const newProduct = { ...product, comments: product.comments.push(comment) };
+  Object.assign(product, newProduct);
+  await product.save();
+  return product;
+};
+
 module.exports = {
   createProduct,
   queryProducts,
@@ -110,4 +121,5 @@ module.exports = {
   updateProductById,
   deleteProductById,
   queryTopProducts,
+  addCommentToProduct,
 };

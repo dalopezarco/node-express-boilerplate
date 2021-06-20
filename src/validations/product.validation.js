@@ -36,13 +36,15 @@ const getProduct = {
 
 const updateProduct = {
   params: Joi.object().keys({
-    userId: Joi.required().custom(objectId),
+    productId: Joi.required().custom(objectId),
   }),
   body: Joi.object()
     .keys({
-      email: Joi.string().email(),
-      password: Joi.string().custom(password),
       name: Joi.string(),
+      description: Joi.string(),
+      sortBy: Joi.string(),
+      limit: Joi.number().integer(),
+      page: Joi.number().integer(),
     })
     .min(1),
 };
@@ -59,5 +61,5 @@ module.exports = {
   getProduct,
   updateProduct,
   deleteProduct,
-  getTopProducts
+  getTopProducts,
 };
