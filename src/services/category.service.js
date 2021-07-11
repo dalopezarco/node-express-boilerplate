@@ -26,7 +26,7 @@ const createCategory = async (categoryBody) => {
  */
 const queryCategories = async (filter) => {
   let categories = [];
-  if (filter && Object.entries(filter) > 0) {
+  if (filter && filter.name) {
     categories = await Category.find({ name: filter.name }).populate('products');
   } else {
     categories = await Category.find().populate('products');
